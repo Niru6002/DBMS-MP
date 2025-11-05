@@ -40,12 +40,14 @@ The system includes the following entities:
 If you don't have MySQL installed:
 
 **Windows:**
+
 - Download MySQL Installer from https://dev.mysql.com/downloads/installer/
 - Run the installer and select "MySQL Server"
 - Set a root password (or leave it blank for this project)
 - Start the MySQL service
 
 **Verify MySQL is running:**
+
 ```powershell
 mysql --version
 ```
@@ -59,6 +61,7 @@ pip install -r requirements.txt
 ```
 
 This will install:
+
 - `streamlit` - Web application framework
 - `mysql-connector-python` - MySQL database connector
 - `pandas` - Data manipulation library
@@ -88,6 +91,7 @@ streamlit run app.py
 ```
 
 The application will automatically:
+
 - Create the database `grant_management` if it doesn't exist
 - Open in your default browser at `http://localhost:8501`
 
@@ -144,7 +148,8 @@ db = DatabaseConnection(
 
 ### Issue: "Can't connect to MySQL server"
 
-**Solution:** 
+**Solution:**
+
 1. Make sure MySQL service is running
 2. In Windows Services, start "MySQL" service
 3. Or run in PowerShell as Administrator:
@@ -154,7 +159,8 @@ db = DatabaseConnection(
 
 ### Issue: "Port 8501 is already in use"
 
-**Solution:** 
+**Solution:**
+
 1. Close any existing Streamlit applications
 2. Or run on a different port:
    ```powershell
@@ -168,21 +174,25 @@ db = DatabaseConnection(
 ## Features
 
 ### Dashboard
+
 - Quick statistics on total grants, grantees, and milestones
 - Overview of the system
 
 ### Complete CRUD Operations
+
 - Create, Read, Update, Delete for all entities
 - Form validation
 - Success/error messages
 - Data tables with full visibility
 
 ### Relationship Management
+
 - Link grantees to grants with associated body information
 - Link grants to topics for categorization
 - View all relationships in tabular format
 
 ### Data Integrity
+
 - Foreign key constraints
 - Cascading deletes where appropriate
 - SET NULL for optional relationships
@@ -199,6 +209,7 @@ db = DatabaseConnection(
 ## Sample Data
 
 The schema includes sample data for:
+
 - 3 Divisions (Research, Education, Community Development)
 - 4 Regions (North America, Europe, Asia Pacific, Latin America)
 - 4 Topics (STEM Education, Healthcare Research, etc.)
@@ -207,6 +218,7 @@ The schema includes sample data for:
 ## Security Note
 
 **Important:** This is a development/educational project. For production use:
+
 - Use environment variables for database credentials
 - Implement user authentication
 - Add input sanitization
@@ -228,6 +240,7 @@ The `db_operations.py` file provides classes for each entity:
 - `GrantTopicOperations`
 
 Each class includes methods:
+
 - `create()` - Insert new record
 - `read_all()` - Get all records as DataFrame
 - `read_by_id()` - Get specific record
@@ -245,6 +258,7 @@ Each class includes methods:
 ## Support
 
 For issues or questions:
+
 1. Check the Troubleshooting section
 2. Verify MySQL is running
 3. Check database credentials

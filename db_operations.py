@@ -1,5 +1,5 @@
-import mysql.connector
-from mysql.connector import Error
+import pymysql
+from pymysql import Error
 import pandas as pd
 from typing import List, Dict, Optional, Tuple
 from datetime import datetime
@@ -17,20 +17,20 @@ class DatabaseConnection:
     def connect(self):
         """Establish database connection"""
         try:
-            self.connection = mysql.connector.connect(
+            self.connection = pymysql.connect(
                 host=self.host,
                 user=self.user,
                 password=self.password,
                 database=self.database
             )
-            if self.connection.is_connected():
+            if self.connection.open:
                 return True, "Connected to MySQL database"
         except Error as e:
             return False, f"Error: {str(e)}"
     
     def disconnect(self):
         """Close database connection"""
-        if self.connection and self.connection.is_connected():
+        if self.connection and self.connection.open:
             self.connection.close()
     
     def execute_query(self, query: str, params: tuple = None) -> Tuple[bool, str]:
@@ -50,7 +50,7 @@ class DatabaseConnection:
     def fetch_query(self, query: str, params: tuple = None) -> Tuple[bool, any]:
         """Execute SELECT queries and return results"""
         try:
-            cursor = self.connection.cursor(dictionary=True)
+            cursor = self.connection.cursor(pymysql.cursors.DictCursor)
             if params:
                 cursor.execute(query, params)
             else:
@@ -64,7 +64,7 @@ class DatabaseConnection:
     def create_database(self) -> Tuple[bool, str]:
         """Create the database if it doesn't exist"""
         try:
-            conn = mysql.connector.connect(
+            conn = pymysql.connect(
                 host=self.host,
                 user=self.user,
                 password=self.password
