@@ -596,6 +596,14 @@ def main():
                 st.session_state.current_page = "relationships"
                 st.rerun()
         
+        # View All button (full width)
+        st.write("")
+        col1, col2, col3 = st.columns([1, 2, 1])
+        with col2:
+            if st.button("View All Tables", use_container_width=True, key="nav_view_all", type="primary"):
+                st.session_state.current_page = "view_all"
+                st.rerun()
+        
     elif page in ["division", "region", "topic", "grantee", "grant", "beneficiary", "milestone"]:
         # Show CRUD operations for selected entity
         st.markdown(f'<h1 class="main-header">{configs[page]["title"]}</h1>', unsafe_allow_html=True)
@@ -675,6 +683,106 @@ def main():
                             if success: st.rerun()
                     else:
                         st.warning("Please create grants and topics first")
+    
+    elif page == "view_all":
+        st.markdown('<h1 class="main-header">View All Tables</h1>', unsafe_allow_html=True)
+        st.markdown('<p style="text-align: center; color: #6e6e73; font-size: 1.1rem; margin-bottom: 2rem;">Read-only view of all database tables</p>', unsafe_allow_html=True)
+        
+        # Back button
+        if st.button("← Back to Home", use_container_width=False):
+            st.session_state.current_page = "Home"
+            st.rerun()
+        
+        # Display all tables with separators
+        st.markdown("---")
+        
+        # DIVISION
+        st.markdown('<p class="sub-header">Division</p>', unsafe_allow_html=True)
+        division_df = ops['division'].read_all()
+        if not division_df.empty:
+            st.dataframe(division_df, use_container_width=True, hide_index=True)
+        else:
+            st.info("No division records found.")
+        
+        st.markdown("---")
+        
+        # REGION
+        st.markdown('<p class="sub-header">Region</p>', unsafe_allow_html=True)
+        region_df = ops['region'].read_all()
+        if not region_df.empty:
+            st.dataframe(region_df, use_container_width=True, hide_index=True)
+        else:
+            st.info("No region records found.")
+        
+        st.markdown("---")
+        
+        # TOPIC
+        st.markdown('<p class="sub-header">Topic</p>', unsafe_allow_html=True)
+        topic_df = ops['topic'].read_all()
+        if not topic_df.empty:
+            st.dataframe(topic_df, use_container_width=True, hide_index=True)
+        else:
+            st.info("No topic records found.")
+        
+        st.markdown("---")
+        
+        # GRANTEE
+        st.markdown('<p class="sub-header">Grantee</p>', unsafe_allow_html=True)
+        grantee_df = ops['grantee'].read_all()
+        if not grantee_df.empty:
+            st.dataframe(grantee_df, use_container_width=True, hide_index=True)
+        else:
+            st.info("No grantee records found.")
+        
+        st.markdown("---")
+        
+        # GRANT
+        st.markdown('<p class="sub-header">Grant</p>', unsafe_allow_html=True)
+        grant_df = ops['grant'].read_all()
+        if not grant_df.empty:
+            st.dataframe(grant_df, use_container_width=True, hide_index=True)
+        else:
+            st.info("No grant records found.")
+        
+        st.markdown("---")
+        
+        # BENEFICIARY
+        st.markdown('<p class="sub-header">Beneficiary</p>', unsafe_allow_html=True)
+        beneficiary_df = ops['beneficiary'].read_all()
+        if not beneficiary_df.empty:
+            st.dataframe(beneficiary_df, use_container_width=True, hide_index=True)
+        else:
+            st.info("No beneficiary records found.")
+        
+        st.markdown("---")
+        
+        # MILESTONE
+        st.markdown('<p class="sub-header">Milestone</p>', unsafe_allow_html=True)
+        milestone_df = ops['milestone'].read_all()
+        if not milestone_df.empty:
+            st.dataframe(milestone_df, use_container_width=True, hide_index=True)
+        else:
+            st.info("No milestone records found.")
+        
+        st.markdown("---")
+        
+        # GRANTEE-GRANT RELATIONSHIPS
+        st.markdown('<p class="sub-header">Grantee-Grant Relationships</p>', unsafe_allow_html=True)
+        grantee_univs_df = ops['grantee_univs'].read_all()
+        if not grantee_univs_df.empty:
+            st.dataframe(grantee_univs_df, use_container_width=True, hide_index=True)
+        else:
+            st.info("No grantee-grant relationships found.")
+        
+        st.markdown("---")
+        
+        # GRANT-TOPIC RELATIONSHIPS
+        st.markdown('<p class="sub-header">Grant-Topic Relationships</p>', unsafe_allow_html=True)
+        grant_topic_df = ops['grant_topic'].read_all()
+        if not grant_topic_df.empty:
+            st.dataframe(grant_topic_df, use_container_width=True, hide_index=True)
+        else:
+            st.info("No grant-topic relationships found.")
 
 if __name__ == "__main__":
     main()
