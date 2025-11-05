@@ -41,12 +41,32 @@ st.markdown("""
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
     .stTabs [data-baseweb="tab-list"] {
-        gap: 8px;
+        gap: 12px;
+        background-color: #f5f5f7;
+        padding: 8px;
+        border-radius: 12px;
     }
     .stTabs [data-baseweb="tab"] {
-        border-radius: 8px;
-        padding: 8px 16px;
-        font-weight: 500;
+        border-radius: 10px;
+        padding: 12px 24px;
+        font-weight: 600;
+        font-size: 1.05rem;
+        background-color: white;
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+        color: #1d1d1f;
+    }
+    .stTabs [data-baseweb="tab"]:hover {
+        border-color: #0071e3;
+        background-color: #f5f9ff;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 113, 227, 0.2);
+    }
+    .stTabs [aria-selected="true"] {
+        background-color: #0071e3 !important;
+        color: white !important;
+        border-color: #0071e3 !important;
+        box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
     }
     .stDataFrame {
         border-radius: 12px;
